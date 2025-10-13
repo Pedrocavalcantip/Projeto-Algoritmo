@@ -1,0 +1,61 @@
+# Exemplo de arquivo de entrada mais completo para o simulador de fila
+#
+# Este arquivo testa vários cenários, incluindo:
+# - Clientes chegando antes e depois das chamadas.
+# - Tentativas de chamada com a mesa ocupada.
+# - Fila crescendo para testar a realocação de memória.
+# - Chamada com a fila vazia.
+
+# Eventos iniciais: 3 clientes chegam
+CHEGADA 101 0 2 1 40
+CHEGADA 102 5 4 1 35
+CHEGADA 103 8 3 2 30
+
+# Primeira chamada no momento 10. Atende o cliente 101.
+# A mesa ficará ocupada por 30 unidades de tempo (até o momento 40).
+CHAMAR 10
+
+# Cliente 104 chega enquanto a mesa está ocupada.
+CHEGADA 104 15 2 1 50
+
+# Tentativa de chamada no momento 20, mas a mesa ainda está ocupada.
+# A chamada deve informar que não há mesa livre.
+CHAMAR 20
+
+# Mais clientes chegam, a fila continua a crescer.
+CHEGADA 105 25 5 3 20
+CHEGADA 106 30 2 1 45
+CHEGADA 107 35 3 2 40
+
+# A mesa fica livre no momento 40. A chamada atende o próximo da fila (cliente 102).
+# A mesa ficará ocupada até o momento 70.
+CHAMAR 40
+
+# Mais uma chegada.
+CHEGADA 108 50 1 1 60
+
+# A mesa fica livre no momento 70. A chamada atende o cliente 103.
+# A mesa ficará ocupada até o momento 100.
+CHAMAR 70
+
+# A mesa fica livre no momento 100. Atende o cliente 104.
+# A mesa ficará ocupada até o momento 130.
+CHAMAR 100
+
+# Atende o cliente 105 no momento 130. Mesa ocupada até 160.
+CHAMAR 130
+
+# Atende o cliente 106 no momento 160. Mesa ocupada até 190.
+CHAMAR 160
+
+# Atende o cliente 107 no momento 190. Mesa ocupada até 220.
+CHAMAR 190
+
+# Atende o cliente 108 no momento 220. Mesa ocupada até 250.
+CHAMAR 220
+
+# Agora a fila está vazia. Esta chamada deve informar "fila_vazia".
+CHAMAR 230
+
+# Fim da simulação
+FIM
