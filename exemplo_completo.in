@@ -1,61 +1,101 @@
 # Exemplo de arquivo de entrada mais completo para o simulador de fila
 #
 # Este arquivo testa vários cenários, incluindo:
-# - Clientes chegando antes e depois das chamadas.
-# - Tentativas de chamada com a mesa ocupada.
+# - Múltiplas mesas (NUM_MESAS = 3) atendendo simultaneamente.
+# - Sistema de abandono: clientes que excedem sua tolerância de espera.
+# - Tentativas de chamada com todas as mesas ocupadas.
 # - Fila crescendo para testar a realocação de memória.
 # - Chamada com a fila vazia.
 
-# Eventos iniciais: 3 clientes chegam
-CHEGADA 101 0 2 1 40
-CHEGADA 102 5 4 1 35
-CHEGADA 103 8 3 2 30
+# ============================================================
+# CENÁRIO 1: Atendimento simultâneo com 3 mesas
+# ============================================================
 
-# Primeira chamada no momento 10. Atende o cliente 101.
-# A mesa ficará ocupada por 30 unidades de tempo (até o momento 40).
+# Chegam 5 clientes rapidamente
+CHEGADA 101 0 2 1 50
+CHEGADA 102 2 4 1 50
+CHEGADA 103 4 3 2 50
+CHEGADA 104 6 2 1 50
+CHEGADA 105 8 5 3 50
+
+# Chamada no momento 10: As 3 mesas estão livres
+# Mesa 0 atende cliente 101 (termina em 40)
 CHAMAR 10
 
-# Cliente 104 chega enquanto a mesa está ocupada.
-CHEGADA 104 15 2 1 50
+# Mesa 1 atende cliente 102 (termina em 40)
+CHAMAR 10
 
-# Tentativa de chamada no momento 20, mas a mesa ainda está ocupada.
-# A chamada deve informar que não há mesa livre.
-CHAMAR 20
+# Mesa 2 atende cliente 103 (termina em 40)
+CHAMAR 10
 
-# Mais clientes chegam, a fila continua a crescer.
-CHEGADA 105 25 5 3 20
-CHEGADA 106 30 2 1 45
-CHEGADA 107 35 3 2 40
+# Tentativa de chamar, mas todas as 3 mesas estão ocupadas
+CHAMAR 15
 
-# A mesa fica livre no momento 40. A chamada atende o próximo da fila (cliente 102).
-# A mesa ficará ocupada até o momento 70.
+# ============================================================
+# CENÁRIO 2: Sistema de abandono (baixa tolerância)
+# ============================================================
+
+# Cliente 201 chega com tolerância de apenas 5 unidades de tempo
+CHEGADA 201 20 2 1 5
+
+# Cliente 202 chega com tolerância de 10 unidades
+CHEGADA 202 22 3 2 10
+
+# Chamada no momento 25: Cliente 201 esperou 5 unidades (no limite)
+# mas as mesas ainda estão ocupadas (livre em 40)
+CHAMAR 25
+
+# Chamada no momento 35: Cliente 201 esperou 15 unidades
+# Tolerância era 5, então deve ABANDONAR
+CHAMAR 35
+
+# ============================================================
+# CENÁRIO 3: Atendimento após liberação das mesas
+# ============================================================
+
+# As 3 mesas ficam livres no momento 40
+# Cliente 104 ainda está na fila (esperou desde momento 6)
 CHAMAR 40
 
-# Mais uma chegada.
-CHEGADA 108 50 1 1 60
+# Mesa que liberou atende cliente 105
+CHAMAR 40
 
-# A mesa fica livre no momento 70. A chamada atende o cliente 103.
-# A mesa ficará ocupada até o momento 100.
+# Mesa que liberou atende cliente 202 (que ainda está na fila)
+CHAMAR 40
+
+# ============================================================
+# CENÁRIO 4: Mais chegadas e teste de realocação de memória
+# ============================================================
+
+CHEGADA 301 45 2 1 100
+CHEGADA 302 46 3 1 100
+CHEGADA 303 47 4 2 100
+CHEGADA 304 48 2 1 100
+CHEGADA 305 49 5 3 100
+CHEGADA 306 50 2 1 100
+CHEGADA 307 51 3 2 100
+CHEGADA 308 52 4 1 100
+
+# As mesas liberaram no momento 70 (40 + TEMPO_ATENDIMENTO = 70)
+CHAMAR 70
+CHAMAR 70
 CHAMAR 70
 
-# A mesa fica livre no momento 100. Atende o cliente 104.
-# A mesa ficará ocupada até o momento 130.
+# Continuando os atendimentos no momento 100
+CHAMAR 100
+CHAMAR 100
 CHAMAR 100
 
-# Atende o cliente 105 no momento 130. Mesa ocupada até 160.
+# Mais atendimentos no momento 130
+CHAMAR 130
 CHAMAR 130
 
-# Atende o cliente 106 no momento 160. Mesa ocupada até 190.
-CHAMAR 160
-
-# Atende o cliente 107 no momento 190. Mesa ocupada até 220.
-CHAMAR 190
-
-# Atende o cliente 108 no momento 220. Mesa ocupada até 250.
-CHAMAR 220
+# ============================================================
+# CENÁRIO 5: Fila vazia
+# ============================================================
 
 # Agora a fila está vazia. Esta chamada deve informar "fila_vazia".
-CHAMAR 230
+CHAMAR 160
 
 # Fim da simulação
 FIM
