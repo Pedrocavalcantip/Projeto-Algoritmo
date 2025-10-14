@@ -1,0 +1,19 @@
+# Arquivos executáveis compilados
+*.exe
+*.out
+simulacao
+
+# Arquivos binários de métricas gerados
+*.bin
+
+# Arquivos de saída da simulação (opcional - remova se quiser versionar)
+saida_completa.txt
+output.txt
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos do Visual Studio Code
+.vscode/
+*.code-workspace
