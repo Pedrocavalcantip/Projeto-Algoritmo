@@ -2,13 +2,19 @@
 *.exe
 *.out
 simulacao
+restaurante
 
 # Arquivos binários de métricas gerados
 *.bin
 
-# Arquivos de saída da simulação (opcional - remova se quiser versionar)
+# Arquivos de saída da simulação
 saida_completa.txt
 output.txt
+resultado.txt
+saida*.txt
+
+# Arquivos de teste gerados (manter exemplo.in versionado)
+teste_*.in
 
 # Arquivos temporários do sistema
 .DS_Store

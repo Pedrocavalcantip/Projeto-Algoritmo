@@ -1,0 +1,27 @@
+0, CHEGADA, id=201 grupo=2 prioridade=10 tolerancia=120
+5, CHEGADA, id=202 grupo=4 prioridade=5 tolerancia=90
+8, CHEGADA, id=203 grupo=3 prioridade=3 tolerancia=60
+10, CHEGADA, id=204 grupo=2 prioridade=8 tolerancia=100
+25, CHAMADA, id=201 mesa=0 espera=25 termina=55
+30, CHAMADA, id=204 mesa=2 espera=20 termina=60
+30, RELATORIO tipo=ID
+  Top 5 por ID:
+    ID=201 mesa=0 espera=25
+    ID=204 mesa=2 espera=20
+30, BUSCAR id=201
+  ENCONTRADO: ID=201 mesa=0 inicio=25 espera=25
+35, CHAMADA, id=202 mesa=1 espera=30 termina=65
+35, RELATORIO tipo=ESPERA
+  Top 5 maiores esperas:
+    ID=204 espera=20 mesa=2
+    ID=201 espera=25 mesa=0
+    ID=202 espera=30 mesa=1
+35, FIM
+---
+ATENDIDOS=3
+AVG_ESPERA=25.00
+FILA_RESTANTE=1
+INSERCOES=4 REMOCOES=3
+COMPARACOES=9 COPIAS=22
+ORDENACOES=2 BUSCAS=1
+REALOCACOES=0

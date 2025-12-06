@@ -1,0 +1,12 @@
+# Teste de prioridades
+CHEGADA 201 0 2 10 120   # VIP (prioridade alta)
+CHEGADA 202 5 4 5 90     # Normal
+CHEGADA 203 8 3 3 60     # Baixa prioridade
+CHEGADA 204 10 2 8 100   # Alta prioridade
+CHAMAR 25                # Atende cliente 201 (prioridade 10)
+CHAMAR 30                # Atende cliente 204 (prioridade 8)
+RELATORIO ID             # Ordena por ID
+BUSCAR 201               # Busca cliente 201
+CHAMAR 35                # Atende cliente 202
+RELATORIO ESPERA         # Ordena por tempo de espera
+FIM
