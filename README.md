@@ -27,7 +27,7 @@ g++ -std=c++11 -Wall -Wextra -O2 sistema_restaurante.cpp -o restaurante.exe
 `
 
 **Linux/macOS:**
-`ash
+`bash
 cd "etapa 2"
 g++ -std=c++11 -Wall -Wextra -O2 sistema_restaurante.cpp -o restaurante
 `
